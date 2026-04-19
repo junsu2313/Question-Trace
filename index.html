@@ -1,0 +1,121 @@
+﻿<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Question' Trace</title>
+    <link rel="stylesheet" href="./styles.css">
+  </head>
+  <body>
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">ChatGPT Export</p>
+        <h1><button class="title-home-button" id="title-home" type="button">Question' Trace</button></h1>
+      </div>
+      <div class="top-actions">
+        <button class="theme-toggle" type="button" id="theme-toggle" aria-pressed="false">
+          <span>Light</span>
+        </button>
+        <div class="source-note" id="source-note">loading...</div>
+        <label class="local-file-picker">
+          <span class="file-picker-title">Data</span>
+          <span class="file-picker-current">sample.json</span>
+          <span class="file-picker-action">Choose JSON</span>
+          <input id="local-data-file" type="file" accept=".json,application/json">
+        </label>
+      </div>
+    </header>
+
+    <main class="workspace">
+      <section class="summary-grid" id="summary-grid" aria-label="요약"></section>
+
+      <section class="band">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">Activity</p>
+            <h2>월별 흐름</h2>
+          </div>
+          <p id="range-note"></p>
+        </div>
+        <div class="month-chart" id="month-chart" aria-label="월별 대화"></div>
+      </section>
+
+      <section class="band">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">Explore</p>
+            <h2>대화 찾기</h2>
+          </div>
+          <p id="result-count"></p>
+        </div>
+
+        <div class="controls">
+          <label class="search-label">
+            <span>검색</span>
+            <input id="search" type="search" placeholder="예: EPYC, 자동화, Grafana">
+          </label>
+          <label class="search-label small">
+            <span>정렬</span>
+            <select id="sort">
+              <option value="newest">최신순</option>
+              <option value="oldest">오래된순</option>
+              <option value="longest">분량순</option>
+              <option value="messages">메시지순</option>
+            </select>
+          </label>
+        </div>
+
+        <div class="topic-pills" id="topic-pills" aria-label="주제 필터"></div>
+        <div class="timeline" id="timeline"></div>
+      </section>
+
+      <section class="band">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">Export Fields</p>
+            <h2>포함된 정보</h2>
+          </div>
+        </div>
+        <div class="field-list">
+          <div><strong>대화 단위</strong><span>title, create_time, update_time, mapping, conversation_id 계열 메타데이터</span></div>
+          <div><strong>메시지 단위</strong><span>id, author.role, create_time, content_type, parts/text, status, parent, children</span></div>
+          <div><strong>도구 기록</strong><span>web.run, browser, python, file_search 같은 tool 메시지와 일부 실행 메타데이터</span></div>
+          <div><strong>모델 흔적</strong><span>model_slug, default_model_slug, reasoning_status, request_id, turn_exchange_id</span></div>
+          <div><strong>첨부 메타</strong><span>파일명, mimeType, fileSizeTokens 같은 첨부 정보. 원본 파일 내용 전체가 항상 들어있는 것은 아님</span></div>
+          <div><strong>숨김 메시지</strong><span>system, developer, user profile, tool 상태처럼 화면에는 안 보이는 필드가 포함될 수 있음</span></div>
+        </div>
+      </section>
+    </main>
+
+    <template id="conversation-template">
+      <article class="conversation">
+        <div class="conversation-main">
+          <div class="date-block">
+            <span class="date-day"></span>
+            <span class="date-month"></span>
+          </div>
+          <div class="conversation-body">
+            <button class="conversation-title" type="button"></button>
+            <div class="meta-row"></div>
+            <div class="message-preview"></div>
+          </div>
+        </div>
+      </article>
+    </template>
+
+    <footer class="site-footer" aria-label="사이트 정보">
+      <div class="footer-brand">
+        <strong>Question' Trace</strong>
+        <p>AI 대화 기록을 개인의 시간과 맥락으로 다시 읽는 분석 도구입니다.</p>
+      </div>
+      <div class="footer-meta">
+        <a href="mailto:contact@underlab.work">contact@underlab.work</a>
+        <span>Underlab</span>
+        <span>Privacy-first local analysis</span>
+      </div>
+    </footer>
+
+    <script src="./data/sample-timeline.js?v=20260419-korean-fix"></script>
+    <script src="./app-v2.js?v=20260419-korean-fix"></script>
+  </body>
+</html>
